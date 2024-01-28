@@ -3,7 +3,11 @@ import React from 'react';
 const AppointmentsDayView = ({ appointments }) => {
   return (
     <div data-testid="appointmentsDayView">
-      <ol />
+        <ol>
+        {appointments.map((appointment, index) => (
+            <li key={index} /> // Adding a key for each list item
+        ))}
+        </ol>
     </div>
   );
 };
