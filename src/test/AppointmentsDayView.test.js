@@ -60,4 +60,14 @@ describe("AppointmentsDayView", () => {
     render(<AppointmentsDayView appointments={twoAppointments} />);
     expect(document.body.textContent).toContain("Ashley");
   });
+  it("has a button element in each li", () => {
+    render(
+      <AppointmentsDayView
+        appointments={twoAppointments}
+      />
+    );
+    const buttons = screen.getAllByRole('button');
+    expect(buttons).toHaveLength(2);
+    expect(buttons[0].type).toEqual("button");
+  });
 });
