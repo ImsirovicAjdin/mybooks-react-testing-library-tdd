@@ -18,5 +18,15 @@ describe("AppointmentsDayView", () => {
             render(<AppointmentsDayView appointments={[]} />);
             const listElement = screen.getByRole('list');
             expect(listElement).toBeInTheDocument();
-    })
+    });
+    it("renders an li for each appointment", () => {
+        const today = new Date();
+        const twoAppointments = [
+          { startsAt: today.setHours(12, 0) },
+          { startsAt: today.setHours(13, 0) },
+        ];
+        render(<AppointmentsDayView appointments={twoAppointments} />);
+        const listItems = screen.getAllByRole('listitem');
+        expect(listItems).toHaveLength(2);
+      });
 });
