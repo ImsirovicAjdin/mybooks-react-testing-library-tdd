@@ -29,4 +29,16 @@ describe("AppointmentsDayView", () => {
         const listItems = screen.getAllByRole('listitem');
         expect(listItems).toHaveLength(2);
       });
+      it("renders the time of each appointment", () => {
+        const today = new Date();
+        const twoAppointments = [
+          { startsAt: today.setHours(12, 0) },
+          { startsAt: today.setHours(13, 0) },
+        ];
+        render(<AppointmentsDayView appointments={twoAppointments} />);
+        const firstAppointment = screen.getAllByRole('listitem')[0];
+        const secondAppointment = screen.getAllByRole('listitem')[1];
+        expect(firstAppointment).toHaveTextContent("12:00");
+        expect(secondAppointment).toHaveTextContent("13:00");
+    });
 });

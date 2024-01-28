@@ -1,4 +1,5 @@
 import React from 'react';
+import { appointmentTimeOfDay } from './Appointment';
 
 const AppointmentsDayView = ({ appointments }) => {
   return (
