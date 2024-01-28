@@ -59,4 +59,20 @@ describe("Appointment", () => {
     render(<Appointment customer={customer} />);
     expect(screen.getByText("Has allergy to certain hair products")).toBeInTheDocument();
   });
+  it("renders the appointment time as a heading", () => {
+    const customer = {
+      firstName: "Ashley",
+      lastName: "Smith",
+      phoneNumber: "123456789",
+      stylist: "Jane Doe",
+      service: "Haircut",
+      notes: "Has allergy to certain hair products"
+    };
+    const appointment = { 
+      startsAt: new Date().setHours(12, 0),
+      customer
+    };
+    render(<Appointment customer={appointment.customer} startsAt={appointment.startsAt} />);
+    expect(screen.getByRole('heading')).toHaveTextContent("12:00");
+  });
 });
