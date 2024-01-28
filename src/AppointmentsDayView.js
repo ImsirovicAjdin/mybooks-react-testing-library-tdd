@@ -5,8 +5,10 @@ const AppointmentsDayView = ({ appointments }) => {
   return (
     <div data-testid="appointmentsDayView">
         <ol>
-        {appointments.map((appointment, index) => (
-            <li key={index} /> // Adding a key for each list item
+        {appointments.map(appointment => (
+            <li key={appointment.startsAt}>
+            {appointmentTimeOfDay(appointment.startsAt)}
+            </li>
         ))}
         </ol>
     </div>
