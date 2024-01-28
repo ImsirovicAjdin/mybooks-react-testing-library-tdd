@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import AppointmentsDayView from '../src/AppointmentsDayView';
+import AppointmentsDayView from '../AppointmentsDayView';
 
 describe("AppointmentsDayView", () => {
     it("renders a div with the right id", () => {
