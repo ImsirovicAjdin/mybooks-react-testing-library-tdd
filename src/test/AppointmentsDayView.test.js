@@ -42,4 +42,8 @@ describe("AppointmentsDayView", () => {
     expect(firstAppointment).toHaveTextContent("12:00");
     expect(secondAppointment).toHaveTextContent("13:00");
   });
+  it("initially shows a message saying there are no appointments today", () => {
+    render(<AppointmentsDayView appointments={[]} />);
+    expect(screen.getByText("There are no appointments scheduled for today.")).toBeInTheDocument();
+  });
 });
