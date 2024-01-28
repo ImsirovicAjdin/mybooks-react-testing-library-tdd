@@ -6,10 +6,20 @@ import AppointmentsDayView from '../AppointmentsDayView';
 describe("AppointmentsDayView", () => {
   // Shared test data
   const today = new Date();
-  const twoAppointments = [
-    { startsAt: today.setHours(12, 0) },
-    { startsAt: today.setHours(13, 0) },
-  ];
+//   const twoAppointments = [
+//     { startsAt: today.setHours(12, 0) },
+//     { startsAt: today.setHours(13, 0) },
+//   ];
+    const twoAppointments = [
+        {
+        startsAt: today.setHours(12, 0),
+        customer: { firstName: "Ashley" },
+        },
+        {
+        startsAt: today.setHours(13, 0),
+        customer: { firstName: "Jordan" },
+        },
+    ];
 
   it("renders a div with the right id", () => {
     render(<AppointmentsDayView appointments={[]} />);
@@ -45,5 +55,9 @@ describe("AppointmentsDayView", () => {
   it("initially shows a message saying there are no appointments today", () => {
     render(<AppointmentsDayView appointments={[]} />);
     expect(screen.getByText("There are no appointments scheduled for today.")).toBeInTheDocument();
+  });
+  it("selects the first appointment by default", () => {
+    render(<AppointmentsDayView appointments={twoAppointments} />);
+    expect(document.body.textContent).toContain("Ashley");
   });
 });
