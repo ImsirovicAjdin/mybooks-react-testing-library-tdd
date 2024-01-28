@@ -14,4 +14,14 @@ describe("Appointment", () => {
     // Use screen queries to assert the expected outcome
     expect(screen.getByText("Ashley")).toBeInTheDocument();
   });
+
+  it("renders another customer first name", () => {
+    const customer = { firstName: "Jordan" };
+
+    // Render the Appointment component with a different customer
+    render(<Appointment customer={customer} />);
+
+    // Check if the rendered content includes the name "Jordan"
+    expect(screen.getByText("Jordan")).toBeInTheDocument();
+  });
 });
