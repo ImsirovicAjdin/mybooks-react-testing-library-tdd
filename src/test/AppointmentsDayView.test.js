@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import AppointmentsDayView from '../AppointmentsDayView';
 
@@ -69,5 +69,11 @@ describe("AppointmentsDayView", () => {
     const buttons = screen.getAllByRole('button');
     expect(buttons).toHaveLength(2);
     expect(buttons[0].type).toEqual("button");
+  });
+  it("renders another appointment when button is clicked", () => {
+    render(<AppointmentsDayView appointments={twoAppointments} />);
+    const buttons = screen.getAllByRole('button');
+    fireEvent.click(buttons[1]);
+    expect(screen.getByText("Jordan")).toBeInTheDocument();
   });
 });
