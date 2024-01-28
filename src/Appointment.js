@@ -7,9 +7,10 @@ export const appointmentTimeOfDay = (startsAt) => {
 };
 
 // Implementation of the Appointment component
-const Appointment = ({ customer }) => {
+const Appointment = ({ customer, startsAt }) => {
   return (
     <div>
+      <h1>{appointmentTimeOfDay(startsAt)}</h1>
       <table>
         <tbody>
           <tr>
