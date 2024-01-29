@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+## Chapter 3 re-coding notes (commit: XXXXXX)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The section you provided discusses creating a custom Jest matcher called `toContainText`. This matcher aims to make expectations involving the presence of specific text within an element's content more readable. While creating custom matchers can be useful for enhancing test readability, it's essential to consider simplicity and maintainability.
 
-## Available Scripts
+Here are some suggestions to simplify the implementation of the `toContainText` matcher:
 
-In the project directory, you can run:
+1. **Evaluate Necessity**: Before creating a custom matcher, evaluate whether it's truly necessary. If existing Jest matchers can already handle your expectations effectively, there may be no need for a custom matcher.
 
-### `npm start`
+2. **Use Existing Matchers**: Jest provides various built-in matchers like `toContain` and `toHaveTextContent`, which can often handle text-related expectations. Utilize these matchers whenever possible.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. **Custom Helper Functions**: Instead of creating a custom matcher, consider writing custom helper functions specific to your project. These functions can encapsulate common expectations and be reused across tests without the complexity of a custom matcher.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+4. **Maintain Test Simplicity**: As mentioned in the book, aim for one expectation per test whenever possible. This helps keep tests simple and focused on specific behaviors.
 
-### `npm test`
+5. **Readability Over Complexity**: While custom matchers can make tests more readable, they should not introduce unnecessary complexity. Evaluate whether the improved readability justifies the complexity of a custom matcher.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+6. **Keep an Eye on Testing Libraries**: Explore existing testing libraries and matchers available as npm packages. They may provide the functionality you need without the need to build custom matchers from scratch.
 
-### `npm run build`
+Based on these suggestions, if your existing tests are not overly complex and the use of custom matchers doesn't significantly improve readability, you might consider sticking to Jest's built-in matchers and helper functions. However, if you find specific repetitive expectations that could benefit from a custom matcher and it enhances the clarity of your tests, then creating one may be worthwhile.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Please let me know if you'd like to proceed with the creation of the `toContainText` matcher or if you have any other questions or requests.
