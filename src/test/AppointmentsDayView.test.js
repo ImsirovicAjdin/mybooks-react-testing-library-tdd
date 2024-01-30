@@ -2,6 +2,9 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import AppointmentsDayView from '../AppointmentsDayView';
+import { toContainText } from './matchers/toContainText'; // Import the custom matcher
+
+expect.extend({ toContainText }); // Extend Jest with the custom matcher
 
 describe("AppointmentsDayView", () => {
   // Shared test data
@@ -49,8 +52,10 @@ describe("AppointmentsDayView", () => {
     render(<AppointmentsDayView appointments={twoAppointments} />);
     const firstAppointment = screen.getAllByRole('listitem')[0];
     const secondAppointment = screen.getAllByRole('listitem')[1];
-    expect(firstAppointment).toHaveTextContent("12:00");
-    expect(secondAppointment).toHaveTextContent("13:00");
+    // expect(firstAppointment).toHaveTextContent("12:00");
+    // expect(secondAppointment).toHaveTextContent("13:00");
+    expect(firstAppointment).toContainText("12:00"); // Use the custom matcher
+    expect(secondAppointment).toContainText("13:00"); // Use the custom matcher
   });
   it("initially shows a message saying there are no appointments today", () => {
     render(<AppointmentsDayView appointments={[]} />);

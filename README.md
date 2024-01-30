@@ -19,3 +19,4 @@ Here are some suggestions to simplify the implementation of the `toContainText` 
 Based on these suggestions, if your existing tests are not overly complex and the use of custom matchers doesn't significantly improve readability, you might consider sticking to Jest's built-in matchers and helper functions. However, if you find specific repetitive expectations that could benefit from a custom matcher and it enhances the clarity of your tests, then creating one may be worthwhile.
 
 Please let me know if you'd like to proceed with the creation of the `toContainText` matcher or if you have any other questions or requests.
+
