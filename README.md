@@ -1,13 +1,3 @@
-## Commit e8963b8 (Ch 3 end):
-
-You had to add `expect.extend({ toContainText })` in both Step 17 and Step 19 for the following reasons:
-
-1. **Step 17**: In Step 17, you added the `expect.extend({ toContainText })` line to your main test file (`domMatchers.js`) where you set up Jest's custom matchers. This line extends Jest's `expect` object with your custom `toContainText` matcher, making it available for all test files. This setup is done globally for your entire test suite.
-
-2. **Step 19**: In Step 19, when you updated the `AppointmentsDayView.test.js` file to use the custom matcher, you needed to import and extend it in the local context of that specific test file. This ensures that the custom matcher is available for tests within that file. Each test file can have its own custom matchers, and these custom matchers are scoped to that file.
-
-So, you added `expect.extend({ toContainText })` to both locations to ensure that the custom matcher is globally available across your test suite and specifically available in the `AppointmentsDayView.test.js` file where you're using it.
-
 ## Chapter 3 re-coding notes (commit: XXXXXX)
 
 The section you provided discusses creating a custom Jest matcher called `toContainText`. This matcher aims to make expectations involving the presence of specific text within an element's content more readable. While creating custom matchers can be useful for enhancing test readability, it's essential to consider simplicity and maintainability.
@@ -30,3 +20,68 @@ Based on these suggestions, if your existing tests are not overly complex and th
 
 Please let me know if you'd like to proceed with the creation of the `toContainText` matcher or if you have any other questions or requests.
 
+## Commit e8963b8 (Ch 3 end):
+
+You had to add `expect.extend({ toContainText })` in both Step 17 and Step 19 for the following reasons:
+
+1. **Step 17**: In Step 17, you added the `expect.extend({ toContainText })` line to your main test file (`domMatchers.js`) where you set up Jest's custom matchers. This line extends Jest's `expect` object with your custom `toContainText` matcher, making it available for all test files. This setup is done globally for your entire test suite.
+
+2. **Step 19**: In Step 19, when you updated the `AppointmentsDayView.test.js` file to use the custom matcher, you needed to import and extend it in the local context of that specific test file. This ensures that the custom matcher is available for tests within that file. Each test file can have its own custom matchers, and these custom matchers are scoped to that file.
+
+So, you added `expect.extend({ toContainText })` to both locations to ensure that the custom matcher is globally available across your test suite and specifically available in the `AppointmentsDayView.test.js` file where you're using it.
+
+## ### WHY DO WE TEST-DRIVE MATCHERS?
+
+**You should write tests for any code that isn’t just simply calling other functions or setting variables.**
+
+At the start of this chapter, you extracted functions such as **render** and **click**. These functions didn’t need tests because you were just transplanting the same line of code from one file to another. But this matcher does something much more complex – it must return an object that conforms to the pattern that Jest requires. It also makes use of Jest’s utility functions to build up a helpful message. That complexity warrants tests.
+
+**If you are building matchers for a library, you should be more careful with your matcher’s implementation. For example, we didn’t bother to check that the received value is an HTML element. That’s fine because this matcher exists in our code base only, and we control how it’s used.** When you package matchers for use in other projects, you should also verify that the function inputs are values you’re expecting to see.
+
+You’ve now successfully test-driven your first matcher. There will be more opportunities for you to practice this skill as this book progresses. For now, we’ll move on to the final part of our cleanup: creating some fluent DOM helpers.
+
+
+The book discusses the importance of test-driving matchers and mentions that when building matchers for a library, it's essential to be careful with the matcher's implementation. In this case, you didn't check whether the received value is an HTML element because the matcher exists only in your codebase, and you control its usage.
+
+Now that you've successfully test-driven your first matcher, the book suggests moving on to the final part of the cleanup: creating some fluent DOM helpers.
+
+## Extracting fluent DOM helpers
+
+In this section, we’ll pull out a bunch of little functions that will help our tests become more readable. This will be straightforward compared to the matcher we’ve just built.
+
+The **reactTestExtensions.js** module already contains three functions that you’ve used: **initializeReactContainer**, **render**, and **click**.
+
+Now, we’ll add four more: **element**, **elements**, **typesOf**, and **textOf**. These functions are designed to help your tests read much more like plain English. Let’s take a look at an example. Here are the expectations for one of our tests:
+```js
+const listChildren = document.querySelectorAll("li");
+expect(listChildren[0].textContent).toEqual("12:00");
+expect(listChildren[1].textContent).toEqual("13:00");
+```
+
+We can introduce a function, **elements**, that is a shorter version of **document.querySelectorAll**. The shorter name means we can get rid of the extra variable:
+```js
+expect(elements("li")[0].textContent).toEqual("12:00");
+expect(elements("li")[1].textContent).toEqual("13:00");
+```
+
+This code is now calling **querySelectorAll** twice – so it’s doing more work than before – but it’s also shorter and more readable. And we can go even further. We can boil this down to one **expect** call by matching on the **elements** array itself. Since we need **textContent**, we will simply build a mapping function called **textOf** that takes that input array and returns the **textContent** property of each element within it:
+```js
+expect(textOf(elements("li"))).toEqual(["12:00", "13:00"]);
+```
+
+The **toEqual** matcher, when applied to arrays, will check that each array has the same number of elements and that each element appears in the same place.
+
+We’ve reduced our original three lines of code to just one!
+
+Let’s go ahead and build these new helpers:
+
+**Step 1.** Open **test/reactTestExtensions.js** and add the following definitions at the bottom of the file. You’ll notice that the elements are using **Array.from**. This is so that the resulting array can be mapped over by both **typesOf** and **textOf**:
+```js
+export const element = (selector) => document.querySelector(selector);
+
+export const elements = (selector) => Array.from(document.querySelectorAll(selector));
+
+export const typesOf = (elements) => elements.map((element) => element.type);
+
+export const textOf = (elements) => elements.map((element) => element.textContent);
+```
